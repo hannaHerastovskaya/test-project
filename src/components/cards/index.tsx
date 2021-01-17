@@ -3,7 +3,7 @@ import React from 'react';
 import { FiltersContext } from '../../App';
 import { getFilteredData } from '../../helpers/filters';
 import { DataUI } from '../../types';
-import { CardStyled, CardInfo, EmptyStyled } from './styled';
+import { CardStyled, CardInfo, EmptyStyled, RowStyled } from './styled';
 import 'antd/dist/antd.css';
 import img from '../../img/img.png';
 import img1 from '../../img/img1.png';
@@ -17,8 +17,19 @@ export const Cards: React.FC = () => {
         setFilteredData(getFilteredData(filters));
     }, [filters]);
 
+    const getCardImg = (index: number): JSX.Element => (
+        <img src={(!(index % 3) && img2) || (!(index % 2) && img) || img1} alt="img"/>
+    );
+
+    const getCardDescription = (item: DataUI): JSX.Element => (
+        <div>
+            {item.categoryName}
+            <span id="price">{item.price}$</span>
+        </div>
+    );
+
     return filteredData?.length ? (
-        <Row gutter={24} wrap style={{ flex: 'auto', height: 'max-content' }}>
+        <RowStyled gutter={24} wrap >
             {filteredData.map((item, index) => (
                 <Col
                     key={item.id}
@@ -28,24 +39,12 @@ export const Cards: React.FC = () => {
                     md={{ span: 12 }}
                     lg={{ span: 8 }}
                 >
-                    <CardStyled
-                        city={item.cityName}
-                        hoverable
-                        cover={<img src={(!(index % 3) && img2) || (!(index % 2) && img) || img1}/>}
-                    >
-                        <CardInfo
-                            title={item.name}
-                            description={
-                                <div>
-                                    {item.categoryName}
-                                    <span id="price">{item.price}$</span>
-                                </div>
-                            }
-                        />
+                    <CardStyled city={item.cityName} hoverable cover={getCardImg(index)}>
+                        <CardInfo title={item.name} description={getCardDescription(item)}/>
                     </CardStyled>
                 </Col>
-            ))}{' '}
-        </Row>
+            ))}
+        </RowStyled>
     ) : (
         <EmptyStyled />
     );

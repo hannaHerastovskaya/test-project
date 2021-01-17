@@ -1,11 +1,20 @@
 import { Button, Select, Slider } from 'antd';
 import React from 'react';
-import {FilterContainer, Title, FilterBlock, CheckboxGroup, PriceAndFilterBlock, cityOptionsStyles} from './styled';
+import {
+    FilterContainer,
+    Title,
+    FilterBlock,
+    CheckboxGroup,
+    PriceAndFilterBlock,
+    cityOptionsStyles,
+    SelectStyled
+} from './styled';
 import { cities } from '../../data';
 import 'antd/dist/antd.css';
 import { CheckboxValueType } from 'antd/es/checkbox/Group';
 import { getCategoryOptions } from '../../helpers/filters';
 import { FiltersContext } from '../../App';
+import { SelectValue } from 'antd/es/select';
 
 const { Option } = Select;
 
@@ -31,20 +40,24 @@ export const FiltersComponent: React.FC= () => {
         });
     }, [setFilters, selectedCityId, selectedCategoryIds, priceRange])
 
+    const onSelectCity = React.useCallback((value: SelectValue) => {
+        // if value === '', need to replace to null for adding variable to locale storage
+        setSelectedCityId(+value || null);
+    }, [])
+
     return <FilterContainer>
         <FilterBlock>
             <Title>CITY</Title>
-            <Select
+            <SelectStyled
+                onChange={onSelectCity}
                 showSearch
-                style={{ width: 240, ...cityOptionsStyles }}
                 size="large"
                 placeholder="Select a city"
-                value={selectedCityId ?? undefined}
-                onChange={setSelectedCityId}
+                value={selectedCityId ?? undefined} // value waiting for string, number or undefined type
                 allowClear
             >
                 {citiesOptions}
-            </Select>
+            </SelectStyled>
         </FilterBlock>
         <FilterBlock>
             <Title>CATEGORIES</Title>

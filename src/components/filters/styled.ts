@@ -1,10 +1,11 @@
 import styled from 'styled-components';
-import { Checkbox } from "antd";
+import { Checkbox, Select } from 'antd';
 
 export const FilterContainer = styled.div`
-    width: 300px;
+    width: 240px;
     display: flex;
     flex-direction: column;
+    margin-right: 40px;
 `;
 
 export const Title = styled.span`
@@ -16,7 +17,7 @@ export const Title = styled.span`
 `;
 
 export const FilterBlock = styled.div`
-    margin: 0 40px 40px 0;
+    margin-bottom: 40px;
     display: flex;
     flex-direction: column;
     height: max-content;
@@ -76,3 +77,9 @@ export const CheckboxGroup = styled(Checkbox.Group)`
 `;
 
 export const cityOptionsStyles = {fontSize: 15, color: '#4c505b', fontFamily: "Raleway"};
+
+export const SelectStyled = styled(Select)`
+    font-size: 15px;
+    color: #4c505b;
+    font-family: "Raleway";
+`;

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Card, Empty } from 'antd';
+import { Card, Empty, Row } from 'antd';
 
 export const CardStyled = styled(Card)<{ city: string }>`
     min-width: 150px;
@@ -56,4 +56,9 @@ export const EmptyStyled = styled(Empty)`
     color: #4c505b;
     font-weight: 400;
     font-family: "Raleway";
+`;
+
+export const RowStyled = styled(Row)`
+   flex: auto;
+  height: max-content;
 `
